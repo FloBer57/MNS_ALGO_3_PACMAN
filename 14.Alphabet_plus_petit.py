@@ -192,7 +192,7 @@ if number < comptY :
 if number < comptZ :
     number = comptZ
 
-print(number)
+print(f"{number} c'est le nombre de ")
 
           
 
