@@ -23,7 +23,6 @@ def print_map(lab):
 
 lab = [[random.choice(list_found) for _ in range(5)] for _ in range(5)]
 
-
 # La position de commencement du joueur
 player_pos = [0, 0]
 
