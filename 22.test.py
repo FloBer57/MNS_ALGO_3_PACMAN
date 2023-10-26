@@ -1,5 +1,7 @@
 #Test PACMAN
 
+import random
+
 mur_vertical = "║"
 mur_horizontal = "═"
 coin_haut_gauche = "╔"
@@ -7,41 +9,77 @@ coin_haut_droite = "╗"
 coin_bas_gauche = "╚"
 coin_bas_droite = "╝"
 coin_vers_bas = "╦"
+coin_vers_droite = "╠"
+coin_vers_gauche ="╣"
+coin_vers_haut = "╩"
 vide = " "
-pacman = "█"
+playerG = "ᗤ"
+playerD = "ᗧ"
+player = "ᗧ"
+ghost = "ᗣ"
+ghost_un = "๑"
+ghost_deux = "ʘ" 
+pac_gomme = '●'
+list_choice = ["z", "q", "s", "d"]
+score = '0'
 
 
+murs = [mur_vertical,mur_horizontal,coin_haut_gauche,coin_haut_droite,coin_bas_gauche,coin_bas_droite,coin_vers_bas,coin_vers_droite,coin_vers_gauche,coin_vers_haut]
 #Voici mon tableau, je viens de voir qu'on peux utiliser des *
 lab = [
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
-    [0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,]
-    [0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 3, 0,]
-    [0, 2.5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2.5, 0, 0, 0, 0,]
-    [0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,]
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,]
+    [vide, coin_haut_gauche, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, coin_haut_droite, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, mur_horizontal, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, coin_vers_bas, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, coin_vers_droite, mur_horizontal, pac_gomme, mur_vertical, pac_gomme, mur_horizontal, mur_horizontal, coin_vers_haut, mur_horizontal, mur_horizontal, pac_gomme, mur_vertical, pac_gomme, mur_horizontal, coin_vers_gauche, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme,pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, vide, mur_horizontal, vide, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, vide, vide, vide, vide],
+    [vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, vide],
+    [vide, coin_haut_gauche, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_haut_droite, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, mur_horizontal, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme,pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, coin_vers_droite, mur_horizontal, pac_gomme, mur_vertical, pac_gomme, mur_horizontal, mur_horizontal, coin_vers_bas, mur_horizontal, mur_horizontal, pac_gomme, mur_vertical, pac_gomme, mur_horizontal, coin_vers_gauche, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, coin_vers_haut, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
+    [vide, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, vide, vide, vide, vide],
 ]
 
-#X|X|X| |X             #0.0|0.1|0.2|0.3|0.4
-#X|X| | |X             #1.0|1.1|1.2|1.3|1.4
-#X| | |X|X             #2.0|2.1|2.2|2.3|2.4
-#X| |X| |X             #3.0|3.1|3.2|3.3|3.4
-#X| |X| |X             #4.0|4.1|4.2|4.3|4.4
+#    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+#    [0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,]
+#    [0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 3, 0,]
+#    [0, 2.5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2.5, 0, 0, 0, 0,]
+#    [0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,]
+#    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,]
 
-
-
-player_pos = [1, 1]
+player_pos = [1, 2]
 lab[player_pos[0]][player_pos[1]] = player
+
+ghost_pos = [9,8]
+lab[ghost_pos[0]][ghost_pos[1]] = ghost
+
+ghost_pos_un = [9,9]
+lab[ghost_pos_un[0]][ghost_pos_un[1]] = ghost_un
+
+ghost_pos_deux = [9,7]
+lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = ghost_deux
+
+score_pos = [6,18]
+lab[score_pos[0]][score_pos[1]] = score
 
 
 def printmap():
@@ -49,52 +87,109 @@ def printmap():
         i_str = "".join(ii)
         print(i_str)
 
+def ghost_move(var):
+    if var == "z" and lab[ghost_pos[0] - 1][ghost_pos[1]] not in murs :
+        ghost_pos[0] -= 1
+    if var == "q" and lab[ghost_pos[0]][ghost_pos[1] -1] not in murs :
+        ghost_pos[1] -= 1
+    if var == "s" and lab[ghost_pos[0] + 1][ghost_pos[1]] not in murs :
+        ghost_pos[0] += 1
+    if var == "d" and lab[ghost_pos[0]][ghost_pos[1] + 1] not in murs :
+        ghost_pos[1] += 1
+
+def ghost_un_move(var):
+    if var == "z" and lab[ghost_pos_un[0] - 1][ghost_pos_un[1]] not in murs :
+        ghost_pos_un[0] -= 1
+    if var == "q" and lab[ghost_pos_un[0]][ghost_pos_un[1] -1] not in murs :
+        ghost_pos_un[1] -= 1
+    if var == "s" and lab[ghost_pos_un[0] + 1][ghost_pos_un[1]] not in murs :
+        ghost_pos_un[0] += 1
+    if var == "d" and lab[ghost_pos_un[0]][ghost_pos_un[1] + 1] not in murs :
+        ghost_pos_un[1] += 1
+
+def ghost_deux_move(var):
+    if var == "z" and lab[ghost_pos_deux[0] - 1][ghost_pos_deux[1]] not in murs :
+        ghost_pos_deux[0] -= 1
+    if var == "q" and lab[ghost_pos_deux[0]][ghost_pos_deux[1] -1] not in murs :
+        ghost_pos_deux[1] -= 1
+    if var == "s" and lab[ghost_pos_deux[0] + 1][ghost_pos_deux[1]] not in murs :
+        ghost_pos_deux[0] += 1
+    if var == "d" and lab[ghost_pos_deux[0]][ghost_pos_deux[1] + 1] not in murs :
+        ghost_pos_deux[1] += 1
+
 printmap()
 
 print("Voici la map, le but est de manger tout les petits rond. Bonne chance.")
-
-
-list_choice = ["z","q","s","d"]
 
 while True:
     choice = input("Veuillez rentrer une lettre pour bouger. Z pour haut, S pour bas, Q pour gauche, D pour droite.").lower()
     if choice in list_choice :
 
-        player = int(player)
+        rand = random.choice(list_choice)
+        rand_un = random.choice(list_choice)
+        rand_deux = random.choice(list_choice)
 
+        lab[ghost_pos[0]][ghost_pos[1]] = vide
         lab[player_pos[0]][player_pos[1]] = vide
 
-        if choice == "z" and lab[player_pos[0] - 1][player_pos[1]] != wall :
-            if lab[player_pos[0] - 1][player_pos[1]] == jeton :
-                player = player +1
+        score = int(score)
+
+        if choice == "z" and lab[player_pos[0] - 1][player_pos[1]] not in murs :
+            if lab[player_pos[0] - 1][player_pos[1]] == pac_gomme :
+                score = score + 1
                 player_pos[0] -= 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)
             else : 
                 player_pos[0] -= 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)
 
-        elif choice == "q" and lab[player_pos[0]][player_pos[1] - 1] != wall : 
-            if lab[player_pos[0]][player_pos[1] - 1] == jeton:
-                player = player + 1
+        elif choice == "q" and lab[player_pos[0]][player_pos[1] - 1] not in murs : 
+            if lab[player_pos[0]][player_pos[1] - 1] == pac_gomme:
+                score = score + 1
                 player_pos[1] -= 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)
             else : 
                 player_pos[1] -= 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)
 
-        elif choice == "s" and lab[player_pos[0] + 1][player_pos[1]] != wall : 
-            if lab[player_pos[0] + 1][player_pos[1]] == jeton :
-                player = player + 1
+        elif choice == "s" and lab[player_pos[0] + 1][player_pos[1]] not in murs : 
+            if lab[player_pos[0] + 1][player_pos[1]] == pac_gomme :
+                score = score + 1
                 player_pos[0] += 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)                
             else : 
                 player_pos[0] += 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)                
 
-        elif choice == "d" and lab[player_pos[0]][player_pos[1] + 1] != wall : 
-            if lab[player_pos[0]][player_pos[1] + 1] == jeton :
-                player = player +1
+        elif choice == "d" and lab[player_pos[0]][player_pos[1] + 1] not in murs : 
+            if lab[player_pos[0]][player_pos[1] + 1] == pac_gomme :
+                score = score + 1
                 player_pos[1] += 1
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)                
             else : 
                 player_pos[1] += 1
-
-        player = str(player)
-
+                ghost_move(rand)
+                ghost_un_move(rand_un)
+                ghost_deux_move(rand_deux)
+        score = str(score)
+        
+        lab[ghost_pos[0]][ghost_pos[1]] = ghost
         lab[player_pos[0]][player_pos[1]] = player
+        lab[score_pos[0]][score_pos[1]] = score
 
         printmap()
     elif player == "30" :
