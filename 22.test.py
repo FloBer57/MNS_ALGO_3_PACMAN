@@ -1,28 +1,35 @@
-import tkinter as tk
+#Test PACMAN
 
-wall = "X"
-jeton = "O"
+mur_vertical = "║"
+mur_horizontal = "═"
+coin_haut_gauche = "╔"
+coin_haut_droite = "╗"
+coin_bas_gauche = "╚"
+coin_bas_droite = "╝"
+coin_vers_bas = "╦"
 vide = " "
-player = "1"
+pacman = "█"
 
 
 #Voici mon tableau, je viens de voir qu'on peux utiliser des *
 lab = [
-    [wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall],
-    [wall, jeton, jeton, jeton, jeton, jeton, jeton, vide, jeton, vide, wall],
-    [wall, vide, vide, jeton, vide, jeton, vide, vide, jeton, vide, wall],
-    [wall, jeton, vide, vide, vide, vide, vide, vide, jeton, vide, wall],
-    [wall, vide, vide, vide, vide, vide, jeton, vide, jeton, vide, wall],
-    [wall, jeton, vide, jeton, vide, vide, vide, vide, jeton, vide, wall],
-    [wall, vide, vide, vide, vide, vide, vide, vide, jeton, vide, wall],
-    [wall, jeton, jeton, vide, vide, vide, vide, vide, jeton, vide, wall],
-    [wall, vide, vide, vide, vide, vide, vide, vide, vide, jeton, wall],
-    [wall, jeton, vide, jeton, vide, vide, vide, jeton, vide, vide, wall],
-    [wall, vide, jeton, vide, jeton, vide, vide, vide, jeton, vide, wall],
-    [wall, vide, vide, vide, vide, vide, vide, jeton, vide, vide, wall],
-    [wall, vide, jeton, vide, vide, vide, vide, vide, jeton, vide, wall],
-    [wall, jeton, vide, vide, jeton, jeton, vide, vide, jeton, vide, wall],
-    [wall,wall,wall,wall,wall,wall,wall,wall,wall,wall,wall],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+    [0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0,]
+    [0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 3, 0,]
+    [0, 2.5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2.5, 0, 0, 0, 0,]
+    [0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0,]
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,]
 ]
 
 #X|X|X| |X             #0.0|0.1|0.2|0.3|0.4
@@ -38,8 +45,9 @@ lab[player_pos[0]][player_pos[1]] = player
 
 
 def printmap():
-    for i in lab:
-        print(i)
+    for ii in lab:
+        i_str = "".join(ii)
+        print(i_str)
 
 printmap()
 
