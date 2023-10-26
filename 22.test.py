@@ -200,3 +200,4 @@ while True:
     else:
         print("Veuillez choisir un bon input m'enfin !! ")
     
+#OUAIOUAIOUAI
