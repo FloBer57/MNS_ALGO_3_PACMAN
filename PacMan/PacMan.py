@@ -36,7 +36,7 @@ lab = [
     [vide, mur_vertical, pac_gomme, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, vide, mur_horizontal, vide, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, vide, vide, vide, vide],
-    [vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, vide],
+    [vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, vide],
     [vide, coin_haut_gauche, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_haut_droite, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, mur_horizontal, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
@@ -119,7 +119,7 @@ def ghost_un_move(var):
             ghost_pos_un[1] += 1
             break
 
-def ghost_deux_move():
+def ghost_deux_move(var):
     while True:
         var = random.choice(list_choice)
         if var == "z" and lab[ghost_pos_deux[0] - 1][ghost_pos_deux[1]] not in murs :
@@ -146,9 +146,23 @@ while True:
 
         var = "a"
 
-        lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = vide
-        lab[ghost_pos_un[0]][ghost_pos_deux[1]] = vide
-        lab[ghost_pos[0]][ghost_pos[1]] = vide
+        # A MODIFIER, NE FONCTIONNE PAS COMME PREVU .
+        if lab[ghost_pos_deux[0]][ghost_pos_deux[1]] == pac_gomme:
+            lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = pac_gomme
+        else :
+            lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = vide
+        
+        if lab[ghost_pos_un[0]][ghost_pos_un[1]] == pac_gomme :
+            lab[ghost_pos_un[0]][ghost_pos_un[1]] = pac_gomme
+        else:
+            lab[ghost_pos_un[0]][ghost_pos_un[1]] = vide
+
+        if lab[ghost_pos[0]][ghost_pos[1]] == pac_gomme:
+            lab[ghost_pos[0]][ghost_pos[1]] = pac_gomme
+        else:
+            lab[ghost_pos[0]][ghost_pos[1]] = vide
+        #Jusqu'ici.
+
         lab[player_pos[0]][player_pos[1]] = vide
 
         score = int(score)
@@ -206,6 +220,8 @@ while True:
                 ghost_deux_move(var)
         score = str(score)
         
+        #Il faut tajouter une condition quand les joueurs/fantôme arrive sur les bords pour se tp de l'autre coté
+
         lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = ghost_deux
         lab[ghost_pos_un[0]][ghost_pos_un[1]] = ghost_un
         lab[ghost_pos[0]][ghost_pos[1]] = ghost
@@ -213,7 +229,7 @@ while True:
         lab[score_pos[0]][score_pos[1]] = score
 
         printmap()
-    elif player == "30" :
+    elif score == 60 :
         print("Bravo vous avez gagné!")
         break
 
