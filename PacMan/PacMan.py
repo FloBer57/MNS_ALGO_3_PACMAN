@@ -88,34 +88,52 @@ def printmap():
         print(i_str)
 
 def ghost_move(var):
-    if var == "z" and lab[ghost_pos[0] - 1][ghost_pos[1]] not in murs :
-        ghost_pos[0] -= 1
-    if var == "q" and lab[ghost_pos[0]][ghost_pos[1] -1] not in murs :
-        ghost_pos[1] -= 1
-    if var == "s" and lab[ghost_pos[0] + 1][ghost_pos[1]] not in murs :
-        ghost_pos[0] += 1
-    if var == "d" and lab[ghost_pos[0]][ghost_pos[1] + 1] not in murs :
-        ghost_pos[1] += 1
+    while True :
+        var = random.choice(list_choice)
+        if var == "z" and lab[ghost_pos[0] - 1][ghost_pos[1]] not in murs :
+            ghost_pos[0] -= 1
+            break
+        if var == "q" and lab[ghost_pos[0]][ghost_pos[1] -1] not in murs :
+            ghost_pos[1] -= 1
+            break
+        if var == "s" and lab[ghost_pos[0] + 1][ghost_pos[1]] not in murs :
+            ghost_pos[0] += 1
+            break
+        if var == "d" and lab[ghost_pos[0]][ghost_pos[1] + 1] not in murs :
+            ghost_pos[1] += 1
+            break
 
 def ghost_un_move(var):
-    if var == "z" and lab[ghost_pos_un[0] - 1][ghost_pos_un[1]] not in murs :
-        ghost_pos_un[0] -= 1
-    if var == "q" and lab[ghost_pos_un[0]][ghost_pos_un[1] -1] not in murs :
-        ghost_pos_un[1] -= 1
-    if var == "s" and lab[ghost_pos_un[0] + 1][ghost_pos_un[1]] not in murs :
-        ghost_pos_un[0] += 1
-    if var == "d" and lab[ghost_pos_un[0]][ghost_pos_un[1] + 1] not in murs :
-        ghost_pos_un[1] += 1
+    while True :
+        var = random.choice(list_choice)
+        if var == "z" and lab[ghost_pos_un[0] - 1][ghost_pos_un[1]] not in murs :
+            ghost_pos_un[0] -= 1
+            break
+        if var == "q" and lab[ghost_pos_un[0]][ghost_pos_un[1] -1] not in murs :
+            ghost_pos_un[1] -= 1
+            break
+        if var == "s" and lab[ghost_pos_un[0] + 1][ghost_pos_un[1]] not in murs :
+            ghost_pos_un[0] += 1
+            break
+        if var == "d" and lab[ghost_pos_un[0]][ghost_pos_un[1] + 1] not in murs :
+            ghost_pos_un[1] += 1
+            break
 
-def ghost_deux_move(var):
-    if var == "z" and lab[ghost_pos_deux[0] - 1][ghost_pos_deux[1]] not in murs :
-        ghost_pos_deux[0] -= 1
-    if var == "q" and lab[ghost_pos_deux[0]][ghost_pos_deux[1] -1] not in murs :
-        ghost_pos_deux[1] -= 1
-    if var == "s" and lab[ghost_pos_deux[0] + 1][ghost_pos_deux[1]] not in murs :
-        ghost_pos_deux[0] += 1
-    if var == "d" and lab[ghost_pos_deux[0]][ghost_pos_deux[1] + 1] not in murs :
-        ghost_pos_deux[1] += 1
+def ghost_deux_move():
+    while True:
+        var = random.choice(list_choice)
+        if var == "z" and lab[ghost_pos_deux[0] - 1][ghost_pos_deux[1]] not in murs :
+            ghost_pos_deux[0] -= 1
+            break
+        if var == "q" and lab[ghost_pos_deux[0]][ghost_pos_deux[1] -1] not in murs :
+            ghost_pos_deux[1] -= 1
+            break
+        if var == "s" and lab[ghost_pos_deux[0] + 1][ghost_pos_deux[1]] not in murs :
+            ghost_pos_deux[0] += 1
+            break
+        if var == "d" and lab[ghost_pos_deux[0]][ghost_pos_deux[1] + 1] not in murs :
+            ghost_pos_deux[1] += 1
+            break
 
 printmap()
 
@@ -125,10 +143,11 @@ while True:
     choice = input("Veuillez rentrer une lettre pour bouger. Z pour haut, S pour bas, Q pour gauche, D pour droite.").lower()
     if choice in list_choice :
 
-        rand = random.choice(list_choice)
-        rand_un = random.choice(list_choice)
-        rand_deux = random.choice(list_choice)
 
+        var = "a"
+
+        lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = vide
+        lab[ghost_pos_un[0]][ghost_pos_deux[1]] = vide
         lab[ghost_pos[0]][ghost_pos[1]] = vide
         lab[player_pos[0]][player_pos[1]] = vide
 
@@ -138,55 +157,57 @@ while True:
             if lab[player_pos[0] - 1][player_pos[1]] == pac_gomme :
                 score = score + 1
                 player_pos[0] -= 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)
             else : 
                 player_pos[0] -= 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)
 
         elif choice == "q" and lab[player_pos[0]][player_pos[1] - 1] not in murs : 
             if lab[player_pos[0]][player_pos[1] - 1] == pac_gomme:
                 score = score + 1
                 player_pos[1] -= 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)
             else : 
                 player_pos[1] -= 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)
 
         elif choice == "s" and lab[player_pos[0] + 1][player_pos[1]] not in murs : 
             if lab[player_pos[0] + 1][player_pos[1]] == pac_gomme :
                 score = score + 1
                 player_pos[0] += 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)                
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)                
             else : 
                 player_pos[0] += 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)                
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)                
 
         elif choice == "d" and lab[player_pos[0]][player_pos[1] + 1] not in murs : 
             if lab[player_pos[0]][player_pos[1] + 1] == pac_gomme :
                 score = score + 1
                 player_pos[1] += 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)                
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)                
             else : 
                 player_pos[1] += 1
-                ghost_move(rand)
-                ghost_un_move(rand_un)
-                ghost_deux_move(rand_deux)
+                ghost_move(var)
+                ghost_un_move(var)
+                ghost_deux_move(var)
         score = str(score)
         
+        lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = ghost_deux
+        lab[ghost_pos_un[0]][ghost_pos_un[1]] = ghost_un
         lab[ghost_pos[0]][ghost_pos[1]] = ghost
         lab[player_pos[0]][player_pos[1]] = player
         lab[score_pos[0]][score_pos[1]] = score
