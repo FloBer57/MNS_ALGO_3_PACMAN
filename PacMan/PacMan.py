@@ -22,7 +22,7 @@ ghost_deux = "ʘ"
 pac_gomme = '●'
 list_choice = ["z", "q", "s", "d"]
 score = '0'
-
+dead = '☠'
 
 murs = [mur_vertical,mur_horizontal,coin_haut_gauche,coin_haut_droite,coin_bas_gauche,coin_bas_droite,coin_vers_bas,coin_vers_droite,coin_vers_gauche,coin_vers_haut]
 #Voici mon tableau, je viens de voir qu'on peux utiliser des *
@@ -220,7 +220,10 @@ while True:
                 ghost_deux_move(var)
         score = str(score)
         
-        #Il faut tajouter une condition quand les joueurs/fantôme arrive sur les bords pour se tp de l'autre coté
+        #Il faut rajouter une condition quand les joueurs/fantôme arrive sur les bords pour se tp de l'autre coté
+
+        
+
 
         lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = ghost_deux
         lab[ghost_pos_un[0]][ghost_pos_un[1]] = ghost_un
@@ -229,11 +232,15 @@ while True:
         lab[score_pos[0]][score_pos[1]] = score
 
         printmap()
-    elif score == 60 :
+    if score == '60' :
         print("Bravo vous avez gagné!")
         break
 
-
+    if lab[player_pos[0]][player_pos[1]] == lab[ghost_pos[0]][ghost_pos[1]] or lab[player_pos[0]][player_pos[1]] == lab[ghost_pos_un[0]][ghost_pos_un[1]] or lab[player_pos[0]][player_pos[1]] == lab[ghost_pos_deux[0]][ghost_pos_deux[1]] :
+        print("Vous avez perdu vous vous êtes fait bouffé !")
+        lab[player_pos[0]][player_pos[1]] = dead
+        break
+    
     else:
         print("Veuillez choisir un bon input m'enfin !! ")
     
