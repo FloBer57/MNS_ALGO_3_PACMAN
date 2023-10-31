@@ -1,6 +1,9 @@
 #Test PACMAN
 
 import random
+import os 
+
+
 
 mur_vertical = "║"
 mur_horizontal = "═"
@@ -23,8 +26,10 @@ pac_gomme = '●'
 list_choice = ["z", "q", "s", "d"]
 score = '0'
 dead = '☠'
+tp = 'v'
+tp_deux = 'p'
 
-murs = [mur_vertical,mur_horizontal,coin_haut_gauche,coin_haut_droite,coin_bas_gauche,coin_bas_droite,coin_vers_bas,coin_vers_droite,coin_vers_gauche,coin_vers_haut]
+murs = [mur_vertical,mur_horizontal,coin_haut_gauche,coin_haut_droite,coin_bas_gauche,coin_bas_droite,coin_vers_bas,coin_vers_droite,coin_vers_gauche,coin_vers_haut,tp]
 #Voici mon tableau, je viens de voir qu'on peux utiliser des *
 lab = [
     [vide, coin_haut_gauche, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, coin_haut_droite, vide, vide, vide, vide],
@@ -35,9 +40,9 @@ lab = [
     [vide, mur_vertical, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme,pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
-    [vide, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, vide, mur_horizontal, vide, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, vide, vide, vide, vide],
-    [vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, vide],
-    [vide, coin_haut_gauche, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_haut_droite, vide, vide, vide, vide],
+    [mur_horizontal, coin_vers_haut, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, vide, mur_horizontal, vide, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_vers_haut, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal],
+    [vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide, vide, vide, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, vide,vide,vide,vide],
+    [mur_horizontal, coin_vers_bas, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_bas_gauche, mur_horizontal, mur_horizontal, mur_horizontal, coin_bas_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, coin_vers_bas, mur_horizontal, mur_horizontal,mur_horizontal,mur_horizontal],
     [vide, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, mur_horizontal, coin_haut_droite, pac_gomme, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, mur_horizontal, pac_gomme, coin_haut_gauche, mur_horizontal, pac_gomme, mur_vertical, vide, vide, vide, vide],
     [vide, mur_vertical, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, pac_gomme, pac_gomme,pac_gomme, pac_gomme, pac_gomme, mur_vertical, pac_gomme, pac_gomme, mur_vertical, vide, vide, vide, vide],
@@ -84,7 +89,7 @@ lab[score_pos[0]][score_pos[1]] = score
 
 def printmap():
     for ii in lab:
-        i_str = "".join(ii)
+        i_str = " ".join(ii)
         print(i_str)
 
 def ghost_move(var):
@@ -230,6 +235,7 @@ while True:
         lab[ghost_pos[0]][ghost_pos[1]] = ghost
         lab[player_pos[0]][player_pos[1]] = player
         lab[score_pos[0]][score_pos[1]] = score
+        os.system("cls")
 
         printmap()
     if score == '60' :
@@ -237,8 +243,10 @@ while True:
         break
 
     if lab[player_pos[0]][player_pos[1]] == lab[ghost_pos[0]][ghost_pos[1]] or lab[player_pos[0]][player_pos[1]] == lab[ghost_pos_un[0]][ghost_pos_un[1]] or lab[player_pos[0]][player_pos[1]] == lab[ghost_pos_deux[0]][ghost_pos_deux[1]] :
-        print("Vous avez perdu vous vous êtes fait bouffé !")
         lab[player_pos[0]][player_pos[1]] = dead
+        printmap()
+        print("Vous avez perdu vous vous êtes fait bouffé !")
+        
         break
     
     else:
