@@ -92,6 +92,7 @@ def printmap():
         i_str = " ".join(ii)
         print(i_str)
 
+
 def ghost_move(var):
     while True :
         var = random.choice(list_choice)
@@ -140,6 +141,12 @@ def ghost_deux_move(var):
             ghost_pos_deux[1] += 1
             break
 
+def moveit():
+    ghost_move(var)
+    ghost_un_move(var)
+    ghost_deux_move(var)
+    
+
 printmap()
 
 print("Voici la map, le but est de manger tout les petits rond. Bonne chance.")
@@ -176,58 +183,40 @@ while True:
             if lab[player_pos[0] - 1][player_pos[1]] == pac_gomme :
                 score = score + 1
                 player_pos[0] -= 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)
+                moveit()
             else : 
                 player_pos[0] -= 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)
+                moveit()
 
         elif choice == "q" and lab[player_pos[0]][player_pos[1] - 1] not in murs : 
             if lab[player_pos[0]][player_pos[1] - 1] == pac_gomme:
                 score = score + 1
                 player_pos[1] -= 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)
+                moveit()
             else : 
                 player_pos[1] -= 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)
+                moveit()
 
         elif choice == "s" and lab[player_pos[0] + 1][player_pos[1]] not in murs : 
             if lab[player_pos[0] + 1][player_pos[1]] == pac_gomme :
                 score = score + 1
                 player_pos[0] += 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)                
+                moveit()            
             else : 
                 player_pos[0] += 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)                
+                moveit()        
 
         elif choice == "d" and lab[player_pos[0]][player_pos[1] + 1] not in murs : 
             if lab[player_pos[0]][player_pos[1] + 1] == pac_gomme :
                 score = score + 1
                 player_pos[1] += 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)                
+                moveit()             
             else : 
                 player_pos[1] += 1
-                ghost_move(var)
-                ghost_un_move(var)
-                ghost_deux_move(var)
+                moveit()
         score = str(score)
         
         #Il faut rajouter une condition quand les joueurs/fantôme arrive sur les bords pour se tp de l'autre coté
-
-        
 
 
         lab[ghost_pos_deux[0]][ghost_pos_deux[1]] = ghost_deux
