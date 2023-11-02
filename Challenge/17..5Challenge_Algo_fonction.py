@@ -55,15 +55,13 @@ for i in range (nombre_eleve) :
 
 print("4ème étape \n \n")
 
-
-list_note = list(range(0,21))
     
 for i_mat in range (nombre_matiere):
     for i in range(nombre_eleve):
         while True:
             try:
                 note_eleve = float(input(f"Veuillez rentrer le note de l'élève {tab_name[i]} {tab_surname[i]} pour la matière de {tab_matiere[i_mat]} : "))
-                if note_eleve in list_note:
+                if 0 <= note_eleve <= 20:
                     break
                 else:
                     print("Veuillez rentrer une note sur 20 maximum.")

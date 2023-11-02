@@ -235,7 +235,6 @@ while True:
         lab[player_pos[0]][player_pos[1]] = dead
         printmap()
         print("Vous avez perdu vous vous êtes fait bouffé !")
-        
         break
     
     else:
