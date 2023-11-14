@@ -8,7 +8,8 @@ while True :
 while True :
     try :
         arrivee = int(input("Veuillez rentrer un entier concernant la borne d'arrivée "))
-        break
+        if arrivee > depart :
+            break
     except ValueError :
         print("Veuillez suivre la consigne.")
 
@@ -20,6 +21,6 @@ while True :
         print("Veuillez suivre la consigne.")
 
 
-list = [i for i in range(depart, arrivee, pas)]
+list = [i for i in range(depart, arrivee +1, pas)]
 
 print(f"Voici le compteur. : {list}")

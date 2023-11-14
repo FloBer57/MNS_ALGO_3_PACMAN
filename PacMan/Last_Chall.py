@@ -24,4 +24,3 @@ for i in range(nb_stagiaires):
 for i in range (nb_stagiaires):
     print(f"-----{stagiaires[i]}-----")
 
-print("Zebi")
